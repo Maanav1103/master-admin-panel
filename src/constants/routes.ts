@@ -8,6 +8,8 @@ export const routes = {
     resetPassword: "/reset-password",
   },
   dashboard: "/dashboard",
+  cms: "/cms",
+  profile: "/profile",
 } as const;
 
 export const publicRoutes: string[] = [

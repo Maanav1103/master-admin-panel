@@ -22,7 +22,7 @@ const Breadcrumb = ({
     <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-3">
         {isShowBackButton && <BackButton previousPage={previousPage} />}
-        <h2 className="text-[26px] font-bold leading-[30px] text-dark dark:text-white">
+        <h2 className="text-[26px] font-bold leading-[30px] text-dark">
           {pageName}
         </h2>
       </div>

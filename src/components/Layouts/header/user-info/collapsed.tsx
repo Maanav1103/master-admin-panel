@@ -9,9 +9,11 @@ import { FallbackImage } from "@/components/custom-elements/FallbackImages";
 import { LocalStorageGetItem } from "@/utils/helpers";
 import { logout } from "@/services/auth.service";
 
-function useAdminDetails() {
+export function CollapsedUserInfo() {
   const [adminDetails, setAdminDetails] = useState<any>(null);
   const [isClient, setIsClient] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
@@ -28,14 +30,6 @@ function useAdminDetails() {
     };
   }, []);
 
-  return { adminDetails, isClient };
-}
-
-export function UserInfo() {
-  const { adminDetails, isClient } = useAdminDetails();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const router = useRouter();
-
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
@@ -50,24 +44,15 @@ export function UserInfo() {
   };
 
   if (!isClient || !adminDetails) {
-    return (
-      <div className="space-y-1">
-        <div className="flex items-center gap-3 px-2 py-2">
-          <div className="size-9 rounded-full bg-gray-200 animate-pulse shrink-0" />
-          <div className="flex-1 space-y-1.5">
-            <div className="h-3 w-20 bg-gray-200 rounded animate-pulse" />
-            <div className="h-3 w-28 bg-gray-200 rounded animate-pulse" />
-          </div>
-        </div>
-      </div>
-    );
+    return <div className="size-8 rounded-full bg-gray-200 animate-pulse mx-auto" />;
   }
 
   return (
-    <div className="space-y-0.5">
+    <>
       <Link
         href={routes.profile}
-        className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 hover:bg-surface transition-colors"
+        title={adminDetails?.fullName || adminDetails?.username}
+        className="rounded-full transition-opacity hover:opacity-80"
       >
         <FallbackImage
           src={adminDetails?.profile_image}
@@ -76,26 +61,16 @@ export function UserInfo() {
           height={200}
           className="size-8"
         />
-        <div className="flex flex-1 min-w-0 flex-col">
-          <span className="truncate text-sm font-semibold text-foreground">
-            {adminDetails?.fullName || adminDetails?.username}
-          </span>
-          <span className="truncate text-xs text-muted">
-            {adminDetails?.email}
-          </span>
-        </div>
       </Link>
 
       <button
         onClick={handleLogout}
         disabled={isLoggingOut}
-        className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-muted hover:text-red-500 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        title="Log out"
+        className="flex items-center justify-center size-8 rounded-lg text-muted hover:text-red-500 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <div className="size-8 flex items-center justify-center shrink-0">
-          {isLoggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
-        </div>
-        <span className="text-sm font-medium">Log out</span>
+        {isLoggingOut ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
       </button>
-    </div>
+    </>
   );
 }

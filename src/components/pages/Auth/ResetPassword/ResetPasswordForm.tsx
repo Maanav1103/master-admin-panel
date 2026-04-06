@@ -17,19 +17,10 @@ export default function ResetPasswordForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<ResetPasswordSchemaType>({
     resolver: yupResolver(resetPasswordSchema),
   });
-
-  const password = watch("newPassword", "");
-
-  const rules = [
-    { label: "At least 8 characters", pass: password.length >= 8 },
-    { label: "One uppercase letter", pass: /[A-Z]/.test(password) },
-    { label: "One number", pass: /[0-9]/.test(password) },
-  ];
 
   const onSubmit = async (values: ResetPasswordSchemaType) => {
     try {
@@ -73,7 +64,6 @@ export default function ResetPasswordForm() {
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
           <input
             type={showNew ? "text" : "password"}
-            placeholder="••••••••"
             {...register("newPassword")}
             className={inputBase}
           />
@@ -83,18 +73,6 @@ export default function ResetPasswordForm() {
           </button>
         </div>
         {errors.newPassword && <p className="text-xs text-red-500">{errors.newPassword.message}</p>}
-
-        {/* Strength hints */}
-        {password.length > 0 && (
-          <ul className="mt-2 space-y-1">
-            {rules.map((r) => (
-              <li key={r.label} className={`flex items-center gap-1.5 text-xs transition-colors ${r.pass ? "text-green-500" : "text-muted"}`}>
-                <span className={`h-1.5 w-1.5 rounded-full ${r.pass ? "bg-green-500" : "bg-muted/40"}`} />
-                {r.label}
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
 
       {/* Confirm Password */}
@@ -104,7 +82,6 @@ export default function ResetPasswordForm() {
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
           <input
             type={showConfirm ? "text" : "password"}
-            placeholder="••••••••"
             {...register("confirmPassword")}
             className={inputBase}
           />

@@ -30,12 +30,6 @@ export const signUpSchema = Yup.object({
     .max(50, "Last name must not exceed 50 characters")
     .required("Last name is required"),
 
-  fullName: Yup.string()
-    .trim()
-    .min(2, "Full name must be at least 2 characters")
-    .max(100, "Full name must not exceed 100 characters")
-    .required("Full name is required"),
-
   email: Yup.string()
     .trim()
     .lowercase()
@@ -45,8 +39,10 @@ export const signUpSchema = Yup.object({
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .max(128, "Password must not exceed 128 characters")
-    .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-    .matches(/[0-9]/, "Must contain at least one number")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+    .matches(/[0-9]/, "Password must contain at least one digit")
+    .matches(/[^A-Za-z0-9]/, "Password must contain at least one special character")
     .required("Password is required"),
 
   confirmPassword: Yup.string()
@@ -88,8 +84,10 @@ export const resetPasswordSchema = Yup.object({
   newPassword: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .max(128, "Password must not exceed 128 characters")
-    .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-    .matches(/[0-9]/, "Must contain at least one number")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+    .matches(/[0-9]/, "Password must contain at least one digit")
+    .matches(/[^A-Za-z0-9]/, "Password must contain at least one special character")
     .required("New password is required"),
 
   confirmPassword: Yup.string()
@@ -98,3 +96,15 @@ export const resetPasswordSchema = Yup.object({
 });
 
 export type ResetPasswordSchemaType = Yup.InferType<typeof resetPasswordSchema>;
+
+export const cmsPageSchema = Yup.object({
+  title: Yup.string().trim().min(2, "Page name must be at least 2 characters").required("Page name is required"),
+  slug: Yup.string().trim().matches(/^[a-z0-9-]+$/, "Slug can only contain lowercase letters, numbers and hyphens").required("Slug is required"),
+  content: Yup.string().test("not-empty", "Content is required", (v) => !!v && v.replace(/<[^>]*>/g, "").trim().length > 0).required("Content is required"),
+  metaTag: Yup.string().trim().default(""),
+  metaTitle: Yup.string().trim().default(""),
+  metaDescription: Yup.string().trim().max(160, "Meta description should not exceed 160 characters").default(""),
+  isPublished: Yup.boolean().default(false),
+});
+
+export type CMSPageSchemaType = Yup.InferType<typeof cmsPageSchema>;

@@ -5,7 +5,7 @@ import {
   Tooltip, ResponsiveContainer,
 } from "recharts";
 import { Download, Mail } from "lucide-react";
-import CustomDateRangePicker from "@/components/custom-elements/CustomDateRangePicker";
+import SingleCalendarRangePicker from "@/components/custom-elements/SingleCalendarRangePicker";
 import {
   Dialog, DialogContent, DialogHeader,
   DialogTitle, DialogFooter,
@@ -116,7 +116,7 @@ export function AnalyticsChart() {
         ))}
 
         {period === "custom" && (
-          <CustomDateRangePicker
+          <SingleCalendarRangePicker
             from={customFrom}
             to={customTo}
             open={customPickerOpen}

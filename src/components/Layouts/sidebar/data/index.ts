@@ -27,7 +27,19 @@ export const NAV_DATA: NavSection[] = [
         url: routes.dashboard,
         icon: Icons.Dashboard,
         items: [],
-      }
+      },
+      {
+        title: "CMS Pages",
+        url: routes.cms,
+        icon: Icons.CMS,
+        items: [],
+      },
+      {
+        title: "Profile",
+        url: routes.profile,
+        icon: Icons.User,
+        items: [],
+      },
     ],
   },
 ];

@@ -9,7 +9,8 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   Mail, Lock, Eye, EyeOff, ArrowRight, Loader2,
-  User, UserCircle, Camera, X,
+  User, Camera, X,
+  UserCircle,
 } from "lucide-react";
 
 export default function SignupWithPassword() {
@@ -28,7 +29,7 @@ export default function SignupWithPassword() {
     formState: { errors },
   } = useForm<SignUpSchemaType>({
     defaultValues: {
-      firstName: "", lastName: "", fullName: "",
+      firstName: "", lastName: "",
       email: "", password: "", confirmPassword: "", profileImage: null,
     },
     resolver: yupResolver(signUpSchema),
@@ -125,16 +126,6 @@ export default function SignupWithPassword() {
         </div>
       </div>
 
-      {/* Full Name */}
-      <div className="space-y-1.5">
-        <label className="text-sm font-medium text-foreground">Full Name</label>
-        <div className="relative">
-          <UserCircle className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
-          <input type="text" placeholder="John Doe" {...register("fullName")} className={inputBase} />
-        </div>
-        {errors.fullName && <p className="text-xs text-red-500">{errors.fullName.message}</p>}
-      </div>
-
       {/* Email */}
       <div className="space-y-1.5">
         <label className="text-sm font-medium text-foreground">Email address</label>
@@ -145,42 +136,40 @@ export default function SignupWithPassword() {
         {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
       </div>
 
-      {/* Password */}
-      <div className="space-y-1.5">
-        <label className="text-sm font-medium text-foreground">Password</label>
-        <div className="relative">
-          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
-            {...register("password")}
-            className={`${inputBase} pr-10`}
-          />
-          <button type="button" onClick={() => setShowPassword(!showPassword)}
-            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-muted/60 hover:text-foreground transition-colors">
-            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </button>
+      {/* Password + Confirm Password */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1.5">
+          <label className="text-sm font-medium text-foreground">Password</label>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+              className={`${inputBase} pr-10`}
+            />
+            <button type="button" onClick={() => setShowPassword(!showPassword)}
+              className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-muted/60 hover:text-foreground transition-colors">
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+          {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
         </div>
-        {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
-      </div>
-
-      {/* Confirm Password */}
-      <div className="space-y-1.5">
-        <label className="text-sm font-medium text-foreground">Confirm Password</label>
-        <div className="relative">
-          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
-          <input
-            type={showConfirm ? "text" : "password"}
-            placeholder="••••••••"
-            {...register("confirmPassword")}
-            className={`${inputBase} pr-10`}
-          />
-          <button type="button" onClick={() => setShowConfirm(!showConfirm)}
-            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-muted/60 hover:text-foreground transition-colors">
-            {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </button>
+        <div className="space-y-1.5">
+          <label className="text-sm font-medium text-foreground">Confirm Password</label>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
+            <input
+              type={showConfirm ? "text" : "password"}
+              {...register("confirmPassword")}
+              className={`${inputBase} pr-10`}
+            />
+            <button type="button" onClick={() => setShowConfirm(!showConfirm)}
+              className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-muted/60 hover:text-foreground transition-colors">
+              {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
+          {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>}
         </div>
-        {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>}
       </div>
 
       {/* Submit */}

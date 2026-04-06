@@ -3,7 +3,8 @@
 
 import Image, { ImageProps } from "next/image";
 import { useState, useEffect } from "react";
-import fallbackSrc from "@/assets/images/profile.png"; // Your fallback image
+import fallbackSrc from "@/assets/images/profile.png";
+import { cn } from "@/lib/utils";
 
 function isValidSrc(src: any): boolean {
   return (
@@ -13,12 +14,10 @@ function isValidSrc(src: any): boolean {
 }
 
 export function FallbackImage(props: ImageProps) {
-  const { src, alt, ...rest } = props;
+  const { src, alt, className, ...rest } = props;
   const url = isValidSrc(src) ? (src as string) : null;
 
-  const [imgSrc, setImgSrc] = useState<string | typeof fallbackSrc | null>(
-    null
-  );
+  const [imgSrc, setImgSrc] = useState<string | typeof fallbackSrc | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -26,17 +25,14 @@ export function FallbackImage(props: ImageProps) {
     setImgSrc(url);
   }, [url]);
 
-  // Show placeholder during SSR and initial client render
   if (!isClient) {
-    return (
-      <div className="size-12 rounded-full border bg-gray-200 animate-pulse" />
-    );
+    return <div className={cn("rounded-full border bg-gray-200 animate-pulse", className ?? "size-8")} />;
   }
 
   return (
     <Image
       {...rest}
-      className="size-12 rounded-full border object-cover"
+      className={cn("rounded-full border object-cover shrink-0", className ?? "size-8")}
       src={imgSrc || fallbackSrc}
       alt={alt}
       onError={() => setImgSrc(fallbackSrc)}

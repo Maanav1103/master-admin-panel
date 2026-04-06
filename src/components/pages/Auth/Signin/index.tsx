@@ -1,3 +1,4 @@
+"use client";
 import { Logo } from "@/components/shared/logo";
 import SigninWithPassword from "./SigninWithPassword";
 

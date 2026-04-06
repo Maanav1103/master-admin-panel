@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/Layouts/sidebar";
-import { Header } from "@/components/Layouts/header";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,7 +18,6 @@ export default function LayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
   const isPublicPage = (publicRoutes as readonly string[]).includes(pathname);
 
   useEffect(() => {
@@ -80,15 +78,14 @@ export default function LayoutWrapper({
             <main>{children}</main>
           ) : (
             <SidebarProvider>
-            <div className="flex min-h-screen">
-              <Sidebar />
-              <div className="w-full bg-[#f3f4f6] overflow-x-hidden">
-                <Header />
-                <main className="w-full max-w-screen-full overflow-hidden p-2 md:p-4 xl:p-6">
-                  {children}
-                </main>
+              <div className="flex min-h-screen">
+                <Sidebar />
+                <div className="w-full bg-[#f3f4f6] overflow-x-hidden">
+                  <main className="w-full max-w-screen-full overflow-hidden p-2 md:p-4 xl:p-6">
+                    {children}
+                  </main>
+                </div>
               </div>
-            </div>
             </SidebarProvider>
           )}
         </TooltipProvider>

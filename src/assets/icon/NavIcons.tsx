@@ -129,3 +129,14 @@ export const CategoryIcon = (props: SVGProps<SVGSVGElement>): JSX.Element => (
     <rect x="3" y="14" width="7" height="7" />
   </svg>
 );
+
+export function CMS(props: PropsType) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M3 8h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M7 6h.01M10 6h.01M13 6h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M7 12h10M7 15.5h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}

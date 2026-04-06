@@ -1,3 +1,4 @@
+"use client";
 import { Logo } from "@/components/shared/logo";
 import SignupWithPassword from "./SignupWithPassword";
 
@@ -13,12 +14,12 @@ export const SignUp = () => {
       </div>
 
       {/* Card */}
-      <div className="relative z-10 w-full max-w-md my-8">
+      <div className="relative z-10 w-full max-w-lg my-8">
 
         {/* Glassy top accent bar */}
         <div className="h-1.5 w-full rounded-t-2xl bg-gradient-brand" />
 
-        <div className="rounded-b-2xl bg-surface-card shadow-2xl shadow-primary/10 border border-border px-8 py-10">
+        <div className="rounded-b-2xl bg-surface-card shadow-2xl shadow-primary/10 border border-border px-10 py-10">
 
           {/* Logo + branding */}
           <div className="mb-8 flex flex-col items-center gap-3">

@@ -76,7 +76,6 @@ export default function SigninWithPassword() {
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted/60 pointer-events-none" />
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
             {...register("password")}
             className={`${inputBase} pr-10`}
           />
