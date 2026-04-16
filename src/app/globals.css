@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   DESIGN TOKENS — change only here to retheme the entire app
+   DESIGN TOKENS
    ============================================================ */
 :root {
   --background: #ffffff;
@@ -16,7 +16,7 @@
   --secondary-light: #7a52b0;
   --secondary-dark:  #3d2460;
 
-  /* Gradient (used as bg-gradient-brand) */
+  /* Gradient */
   --gradient-from:   var(--primary);
   --gradient-to:     var(--secondary);
 
@@ -25,29 +25,66 @@
   --surface-card:    #ffffff;
   --border:          #e2e5f1;
   --muted:           #6b7280;
+  --radius:          0.5rem;
 }
 
 @theme inline {
-  --color-background:      var(--background);
-  --color-foreground:      var(--foreground);
-  --color-popover:         #ffffff;
-  --color-popover-foreground: var(--foreground);
-  --color-primary:         var(--primary);
-  --color-primary-light:   var(--primary-light);
-  --color-primary-dark:    var(--primary-dark);
-  --color-secondary:       var(--secondary);
-  --color-secondary-light: var(--secondary-light);
-  --color-secondary-dark:  var(--secondary-dark);
-  --color-surface:         var(--surface);
-  --color-surface-card:    var(--surface-card);
-  --color-border:          var(--border);
-  --color-stroke:          #e6ebf1;
-  --color-muted:           var(--muted);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Core */
+  --color-background:        var(--background);
+  --color-foreground:        var(--foreground);
+
+  /* Brand */
+  --color-primary:           var(--primary);
+  --color-primary-light:     var(--primary-light);
+  --color-primary-dark:      var(--primary-dark);
+  --color-secondary:         var(--secondary);
+  --color-secondary-light:   var(--secondary-light);
+  --color-secondary-dark:    var(--secondary-dark);
+
+  /* Surface */
+  --color-surface:           var(--surface);
+  --color-surface-card:      var(--surface-card);
+  --color-border:            var(--border);
+  --color-stroke:            #e6ebf1;
+  --color-muted:             var(--muted);
+
+  /* Fonts */
+  --font-sans:               var(--font-geist-sans);
+  --font-mono:               var(--font-geist-mono);
+
+  /* Border radius */
+  --radius-lg:               var(--radius);
+  --radius-md:               calc(var(--radius) - 2px);
+  --radius-sm:               calc(var(--radius) - 4px);
+
+  /* Gray scale */
+  --color-gray-1:            #F9FAFB;
+  --color-gray-2:            #F3F4F6;
+  --color-gray-3:            #E5E7EB;
+  --color-gray-4:            #D1D5DB;
+  --color-gray-5:            #9CA3AF;
+  --color-gray-6:            #6B7280;
+  --color-gray-7:            #374151;
+
+  /* Dark scale */
+  --color-dark:              #111928;
+  --color-dark-2:            #1F2A37;
+  --color-dark-3:            #374151;
+  --color-dark-4:            #4B5563;
+  --color-dark-5:            #6B7280;
+  --color-dark-6:            #9CA3AF;
+  --color-dark-7:            #D1D5DB;
+
+  /* Status colors */
+  --color-green:             #22AD5C;
+  --color-red:               #F23030;
+
+  /* Shadows */
+  --shadow-card:             0px 1px 2px 0px rgba(0,0,0,0.12);
+  --shadow-card-2:           0px 8px 13px -3px rgba(0,0,0,0.07);
 }
 
-/* Reusable gradient utility */
+/* Gradient utilities */
 .bg-gradient-brand {
   background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
 }
@@ -61,21 +98,26 @@
   border-image: linear-gradient(135deg, var(--gradient-from), var(--gradient-to)) 1;
 }
 
-
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Tiptap editor rich-text styles */
+/* Scrollbar */
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-thumb { background: #ccc; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Tiptap editor */
 .prose-content h1 { font-size: 2em; font-weight: 700; margin: 0.67em 0; }
 .prose-content h2 { font-size: 1.5em; font-weight: 700; margin: 0.75em 0; }
 .prose-content h3 { font-size: 1.17em; font-weight: 600; margin: 0.83em 0; }
 .prose-content ul { list-style-type: disc; padding-left: 1.5em; margin: 0.5em 0; }
 .prose-content ol { list-style-type: decimal; padding-left: 1.5em; margin: 0.5em 0; }
 .prose-content li { margin: 0.25em 0; }
-.prose-content p { margin: 0.5em 0; }
-.prose-content a { color: var(--primary); text-decoration: underline; }
+.prose-content p  { margin: 0.5em 0; }
+.prose-content a  { color: var(--primary); text-decoration: underline; }
 .prose-content img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 0.5em 0; }

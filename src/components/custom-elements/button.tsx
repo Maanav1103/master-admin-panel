@@ -10,16 +10,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-gradient-brand text-white",
-        green: "bg-green text-white hover:bg-green/90",
-        dark: "bg-dark text-white dark:bg-white/10 hover:bg-dark/90",
+        primary: "rounded-lg bg-gradient-brand text-white",
+        green: "rounded-lg bg-green text-white hover:bg-green/90",
+        dark: "rounded-lg bg-dark text-white hover:bg-dark/90",
         outlinePrimary:
-          "border border-primary text-primary hover:bg-primary/10",
-        outlineGreen: "border border-green text-green hover:bg-green/10",
+          "rounded-lg border border-primary text-primary hover:bg-primary/10",
+        outlineGreen: "rounded-lg border border-green text-green hover:bg-green/10",
         outline:
-          "border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-100",
+          "rounded-lg border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-100",
         outlineDark:
-          "border border-dark text-dark dark:text-white dark:border-white/25 hover:bg-dark/10",
+          "rounded-lg border border-dark text-dark hover:bg-dark/10",
         gradient:
           "rounded-lg bg-gradient-brand text-white font-bold hover:opacity-90 xl:px-5",
         outlineGradient:
@@ -33,7 +33,7 @@ const buttonVariants = cva(
         large: "py-4 px-10 text-lg",
       },
       shape: {
-        default: "rounded-md",
+        default: "",
         rounded: "rounded-[5px]",
         full: "rounded-full",
       },

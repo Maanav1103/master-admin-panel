@@ -104,7 +104,7 @@ const InputGroup: React.FC<InputGroupProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="text-body-sm font-medium text-gray-700 "
+          className="text-sm font-medium text-gray-700 "
         >
           {label}
           {required && <span className="ml-1 select-none text-red">*</span>}

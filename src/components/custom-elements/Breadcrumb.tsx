@@ -8,7 +8,7 @@ interface BreadcrumbProps {
   onBack?: () => void; // Optional custom back handler
   breadcrumbTrail?: ReactNode; // Optional custom breadcrumb trail
   previousPage?: string;
-  lastButton?: any;
+  lastButton?: ReactNode;
 }
 
 const Breadcrumb = ({

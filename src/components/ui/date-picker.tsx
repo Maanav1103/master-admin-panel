@@ -153,7 +153,7 @@ export function DatePicker({
           value={inputValue}
           placeholder={placeholder}
           className={cn(
-            "bg-background pr-10",
+            "bg-white pr-10",
             error && "border-red-500 focus-visible:ring-red-500",
             disabled && "opacity-50 cursor-not-allowed"
           )}

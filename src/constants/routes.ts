@@ -10,6 +10,7 @@ export const routes = {
   dashboard: "/dashboard",
   cms: "/cms",
   profile: "/profile",
+  crud: "/crud",
 } as const;
 
 export const publicRoutes: string[] = [

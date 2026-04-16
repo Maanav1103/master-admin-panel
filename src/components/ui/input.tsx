@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={id}
-            className="text-body-sm font-medium text-dark dark:text-white"
+            className="text-body-sm font-medium text-dark"
           >
             {label}
             {required && <span className="ml-1 select-none text-red">*</span>}
@@ -35,12 +35,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={isPasswordField ? (showPassword ? "text" : "password") : type}
             className={cn(
-              "w-full rounded-lg border bg-white px-4 py-2 text-sm text-dark shadow-sm outline-none placeholder:text-dark-6 focus:outline-none focus:ring-1 dark:text-white",
+              "w-full rounded-lg border bg-white px-4 py-2 text-sm text-dark shadow-sm outline-none placeholder:text-dark-6 focus:outline-none focus:ring-1",
               iconPosition === "left" && "pl-12",
               (iconPosition === "right" || isPasswordField) && "pr-12",
               error
                 ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-violet-500 focus:ring-violet-500",
+                : "border-gray-300 focus:border-primary focus:ring-primary",
             )}
             {...props}
           />

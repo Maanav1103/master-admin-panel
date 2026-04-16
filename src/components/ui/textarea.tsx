@@ -18,7 +18,7 @@ const Textarea = React.forwardRef<
       <textarea
         rows={4}
         className={cn(
-          "resize-none text-sm px-4 py-2 w-full rounded-lg border-2 border-stroke bg-transparent outline-none transition focus:border-violet-600 disabled:cursor-default disabled:bg-gray-2 data-[active=true]:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary dark:disabled:bg-dark dark:data-[active=true]:border-primary",
+          "resize-none text-sm px-4 py-2 w-full rounded-lg border-2 border-stroke bg-transparent outline-none transition focus:border-primary disabled:cursor-default disabled:bg-gray-2 data-[active=true]:border-primary",
           errorMessage ? "border-red-500" : "border-input",
           className
         )}

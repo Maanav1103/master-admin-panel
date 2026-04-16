@@ -40,6 +40,12 @@ export const NAV_DATA: NavSection[] = [
         icon: Icons.User,
         items: [],
       },
+      {
+        title: "CRUD",
+        url: routes.crud,
+        icon: Icons.Company,
+        items: [],
+      },
     ],
   },
 ];
