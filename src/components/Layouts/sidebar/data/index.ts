@@ -46,6 +46,12 @@ export const NAV_DATA: NavSection[] = [
         icon: Icons.Company,
         items: [],
       },
+      {
+        title: "Settings",
+        url: routes.settings,
+        icon: Icons.Settings,
+        items: [],
+      },
     ],
   },
 ];

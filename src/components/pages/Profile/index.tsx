@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Breadcrumb from "@/components/custom-elements/Breadcrumb";
 import { LocalStorageGetItem, LocalStorageSetItem } from "@/utils/helpers";
-import { Camera, Loader2, UserCircle, X } from "lucide-react";
+import { Camera, Loader2, UserCircle, X, Pencil } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -24,6 +24,7 @@ export function ProfilePage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -55,6 +56,14 @@ export function ProfilePage() {
     if (fileRef.current) fileRef.current.value = "";
   };
 
+  const handleCancel = () => {
+    const admin = LocalStorageGetItem("adminDetails");
+    reset({ fullName: admin?.fullName ?? "", email: admin?.email ?? "" });
+    setPreview(admin?.profileImage ?? null);
+    setImageFile(null);
+    setIsEditing(false);
+  };
+
   const onSubmit = async (values: ProfileFormType) => {
     setLoading(true);
     await new Promise((r) => setTimeout(r, 600));
@@ -77,11 +86,24 @@ export function ProfilePage() {
 
     setLoading(false);
     toast.success("Profile updated successfully");
+    setIsEditing(false);
   };
 
   return (
     <div className="space-y-6">
-      <Breadcrumb pageName="Profile" />
+      <div className="flex items-center justify-between">
+        <Breadcrumb pageName="Profile" />
+        {!isEditing && (
+          <button
+            type="button"
+            onClick={() => setIsEditing(true)}
+            className="cursor-pointer flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/80 transition-colors"
+          >
+            <Pencil className="w-4 h-4" />
+            Edit Profile
+          </button>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -89,20 +111,22 @@ export function ProfilePage() {
           {/* Avatar card */}
           <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col items-center gap-4">
             <div
-              className="relative group cursor-pointer"
-              onClick={() => fileRef.current?.click()}
+              className={`relative group ${isEditing ? 'cursor-pointer' : 'cursor-default'}`}
+              onClick={() => isEditing && fileRef.current?.click()}
             >
-              <div className="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 group-hover:border-primary overflow-hidden flex items-center justify-center bg-gray-50 transition-colors">
+              <div className={`w-28 h-28 rounded-full border-2 border-dashed ${isEditing ? 'border-gray-300 group-hover:border-primary' : 'border-transparent'} overflow-hidden flex items-center justify-center bg-gray-50 transition-colors`}>
                 {preview ? (
                   <Image src={preview} alt="Profile" fill className="object-cover rounded-full" />
                 ) : (
                   <UserCircle className="w-16 h-16 text-gray-300" />
                 )}
               </div>
-              <div className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-md">
-                <Camera className="w-4 h-4 text-white" />
-              </div>
-              {preview && (
+              {isEditing && (
+                <div className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-md">
+                  <Camera className="w-4 h-4 text-white" />
+                </div>
+              )}
+              {preview && isEditing && (
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); removeImage(); }}
@@ -134,6 +158,7 @@ export function ProfilePage() {
               <input
                 type="text"
                 placeholder="Enter full name"
+                disabled={!isEditing}
                 {...register("fullName")}
                 className={inputBase}
               />
@@ -145,33 +170,31 @@ export function ProfilePage() {
               <input
                 type="email"
                 placeholder="Enter email address"
+                disabled={!isEditing}
                 {...register("email")}
                 className={inputBase}
               />
               {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
             </div>
 
-            <div className="flex justify-end gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  const admin = LocalStorageGetItem("adminDetails");
-                  reset({ fullName: admin?.fullName ?? "", email: admin?.email ?? "" });
-                  setPreview(admin?.profileImage ?? null);
-                  setImageFile(null);
-                }}
-                className="cursor-pointer px-5 py-2.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 text-sm font-semibold transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="cursor-pointer px-5 py-2.5 rounded-lg bg-primary hover:bg-primary/80 text-white text-sm font-semibold transition-colors flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Changes"}
-              </button>
-            </div>
+            {isEditing && (
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="cursor-pointer px-5 py-2.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 text-sm font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="cursor-pointer px-5 py-2.5 rounded-lg bg-primary hover:bg-primary/80 text-white text-sm font-semibold transition-colors flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Changes"}
+                </button>
+              </div>
+            )}
           </div>
 
         </div>

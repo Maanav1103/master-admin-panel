@@ -108,3 +108,5 @@ export const cmsPageSchema = Yup.object({
 });
 
 export type CMSPageSchemaType = Yup.InferType<typeof cmsPageSchema>;
+
+export * from "./settingsSchema";

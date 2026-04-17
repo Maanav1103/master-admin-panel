@@ -11,6 +11,7 @@ export const routes = {
   cms: "/cms",
   profile: "/profile",
   crud: "/crud",
+  settings: "/settings",
 } as const;
 
 export const publicRoutes: string[] = [
